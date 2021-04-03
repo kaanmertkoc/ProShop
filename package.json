@@ -1,0 +1,27 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "MERN shopping cart app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaanmertkoc/ProShop.git"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "KaanKoc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaanmertkoc/ProShop/issues"
+  },
+  "homepage": "https://github.com/kaanmertkoc/ProShop#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
+}
