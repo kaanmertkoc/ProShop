@@ -18,10 +18,6 @@ const productSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    emanameil: {
-      type: String,
-      required: true,
-    },
     image: {
       type: String,
       required: true,
@@ -49,7 +45,7 @@ const productSchema = mongoose.Schema(
       default: 0,
     },
     price: {
-      tpye: Number,
+      type: Number,
       required: true,
       default: 0,
     },
