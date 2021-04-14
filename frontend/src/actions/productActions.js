@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -15,13 +15,14 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
-} from "../constants/productConstants";
+} from '../constants/productConstants';
+import { logout } from '../actions/userActions';
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = () => async dispatch => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get("/api/products");
+    const { data } = await axios.get('/api/products');
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -35,7 +36,7 @@ export const listProducts = () => async (dispatch) => {
   }
 };
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listProductDetails = id => async dispatch => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
@@ -53,7 +54,7 @@ export const listProductDetails = (id) => async (dispatch) => {
   }
 };
 
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deleteProduct = id => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_DELETE_REQUEST,
@@ -79,6 +80,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
+
     dispatch({
       type: PRODUCT_DELETE_FAIL,
       payload: message,
@@ -86,7 +88,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 };
 
-export const createProduct = async (dispatch, getState) => {
+export const createProduct = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
@@ -113,6 +115,9 @@ export const createProduct = async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout());
+    }
     dispatch({
       type: PRODUCT_CREATE_FAIL,
       payload: message,
@@ -120,7 +125,7 @@ export const createProduct = async (dispatch, getState) => {
   }
 };
 
-export const updateProduct = (product) => async (dispatch, getState) => {
+export const updateProduct = product => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
@@ -132,7 +137,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };

@@ -12,7 +12,9 @@ import {
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_RESET,
-} from "../constants/productConstants";
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+} from '../constants/productConstants';
 export const productListReducer = (state = { products: [] }, action) => {
   // eslint-disable-next-line default-case
   switch (action.type) {
@@ -75,19 +77,22 @@ export const productDeleteReducer = (state = {}, action) => {
   }
 };
 
-export const updateProductReducer = (state = {}, action) => {
+export const updateProductReducer = (state = { product: {} }, action) => {
   switch (action.type) {
     case PRODUCT_UPDATE_REQUEST:
       return {
         loading: true,
       };
-    case PRODUCT_DELETE_SUCCESS:
+    case PRODUCT_UPDATE_SUCCESS:
       return {
         loading: false,
         success: true,
+        product: action.payload,
       };
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    case PRODUCT_CREATE_RESET:
+      return { product: {} };
     default:
       return state;
   }
@@ -95,7 +100,7 @@ export const updateProductReducer = (state = {}, action) => {
 
 export const createProductReducer = (state = {}, action) => {
   switch (action.type) {
-    case PRODUCT_UPDATE_REQUEST:
+    case PRODUCT_CREATE_REQUEST:
       return {
         loading: true,
       };

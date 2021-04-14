@@ -1,33 +1,33 @@
-import React, { useEffect } from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import { Table, Button, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../Components/Loader";
-import Message from "../Components/Message";
+import React, { useEffect } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Table, Button, Row, Col } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../Components/Loader';
+import Message from '../Components/Message';
 import {
   listProducts,
   deleteProduct,
   createProduct,
-} from "../actions/productActions";
-import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
+} from '../actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
 const ProductListScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
+  const productList = useSelector(state => state.productList);
   const { loading, error, products } = productList;
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
-  const productDelete = useSelector((state) => state.productDelete);
+  const productDelete = useSelector(state => state.productDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
   } = productDelete;
 
-  const productCreate = useSelector((state) => state.productCreate);
+  const productCreate = useSelector(state => state.productCreate);
   const {
     loading: loadingCreate,
     error: errorCreate,
@@ -38,7 +38,7 @@ const ProductListScreen = ({ match, history }) => {
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
     if (!userInfo.isAdmin) {
-      history.push("/login");
+      history.push('/login');
     }
     if (successCreate) {
       history.push(`/admin/product/${createdProduct._id}/edit`);
@@ -54,8 +54,8 @@ const ProductListScreen = ({ match, history }) => {
     createdProduct,
   ]);
 
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
+  const deleteHandler = id => {
+    if (window.confirm('Are you sure?')) {
       dispatch(deleteProduct(id));
     }
   };
@@ -98,7 +98,7 @@ const ProductListScreen = ({ match, history }) => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {products.map(product => (
               <tr key={product._id}>
                 <td>{product._id}</td>
                 <td>{product.name}</td>
